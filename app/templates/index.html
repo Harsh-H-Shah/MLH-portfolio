@@ -78,5 +78,28 @@
         <a href="https://github.com/harsh-h-shah/" target="_blank">GitHub</a>.
       </p>
     </section>
+    <section id="experience">
+      <h2>Work Experience</h2>
+      <ul>
+        {% for job in work_experience %}
+        <li>
+          <strong>{{ job.role }}</strong> at {{ job.company }} ({{ job.duration
+          }})
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <ul>
+        {% for edu in education %}
+        <li>
+          <strong>{{ edu.degree }}</strong> — {{ edu.school }} ({{ edu.duration
+          }})
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
   </body>
 </html>

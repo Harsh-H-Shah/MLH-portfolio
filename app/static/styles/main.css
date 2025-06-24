@@ -187,3 +187,136 @@ body {
 #about a:hover::after {
   width: 100%;
 }
+
+#experience,
+#education {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 60px 40px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+#experience h2,
+#education h2 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #1c539f;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+#experience h2::after,
+#education h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #1c539f, #3b82f6);
+  border-radius: 2px;
+}
+
+#experience ul,
+#education ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#experience li,
+#education li {
+  background: #f8fafc;
+  margin-bottom: 20px;
+  padding: 25px 30px;
+  border-radius: 15px;
+  border-left: 5px solid #1c539f;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#experience li:hover,
+#education li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(28, 83, 159, 0.15);
+  border-left-color: #3b82f6;
+}
+
+#experience li::before,
+#education li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(28, 83, 159, 0.02),
+    rgba(59, 130, 246, 0.02)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#experience li:hover::before,
+#education li:hover::before {
+  opacity: 1;
+}
+
+#experience li:last-child,
+#education li:last-child {
+  margin-bottom: 0;
+}
+
+#experience strong,
+#education strong {
+  color: #1c539f;
+  font-weight: 600;
+  font-size: 20px;
+  display: block;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+#experience li > *:not(strong),
+#education li > *:not(strong) {
+  color: #4a5568;
+  font-size: 16px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+#experience li::after {
+  content: '💼';
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 24px;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+#education li::after {
+  content: '🎓';
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 24px;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+#experience li:hover::after,
+#education li:hover::after {
+  opacity: 0.6;
+  transform: scale(1.1);
+}
