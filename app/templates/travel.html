@@ -1,0 +1,113 @@
+{% extends "base.html" %} {% block title %}Travel - {{ title }}{% endblock %} {%
+block og_title %}My Travel Adventures - {{ title }}{% endblock %} {% block
+og_description %}Explore the world through my travels - countries visited,
+memorable experiences, and travel photography{% endblock %} {% block content %}
+<section id="travel">
+  <div class="travel-hero">
+    <div class="travel-hero-content">
+      <h1>My Travel Adventures</h1>
+      <p class="hero-subtitle">
+        Exploring the world one destination at a time - discovering new
+        cultures, capturing memories, and gaining perspectives that shape who I
+        am today.
+      </p>
+    </div>
+  </div>
+
+  <div class="travel-container">
+    <!-- Travel Map Section -->
+    <div class="travel-map-section">
+      <h2>Places I've Explored</h2>
+      <p class="map-description">
+        From bustling cities to serene landscapes, each pin on this map
+        represents a unique adventure and unforgettable memories. Travel fuels
+        my creativity and broadens my perspective on the world.
+      </p>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/d/u/0/embed?mid=1x4BLvhqNlhjheDzwLO82ZoRIEbmlEAc&ehbc=2E312F"
+          class="travel-map"
+          title="Places I've Visited"
+          loading="lazy"
+        >
+        </iframe>
+        <div class="map-overlay">
+          <div class="map-stats">
+            <div class="stat-item">
+              <span class="stat-icon">🌍</span>
+              <span class="stat-text">Multiple Countries</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">📍</span>
+              <span class="stat-text">Countless Memories</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">✈️</span>
+              <span class="stat-text">Adventure Seeker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Travel Highlights Section -->
+    <div class="travel-highlights">
+      <h2>Travel Highlights</h2>
+      <div class="highlights-grid">
+        {% for destination in travel_destinations %}
+        <div class="destination-card">
+          <div class="destination-image">
+            <img
+              src="{{ url_for('static', filename=destination.image) }}"
+              alt="{{ destination.name }}"
+            />
+            <div class="destination-overlay">
+              <span class="destination-flag">{{ destination.flag }}</span>
+            </div>
+          </div>
+          <div class="destination-content">
+            <h3>{{ destination.name }}</h3>
+            <p class="destination-date">{{ destination.date }}</p>
+            <p class="destination-description">{{ destination.description }}</p>
+            {% if destination.highlights %}
+            <div class="destination-highlights">
+              {% for highlight in destination.highlights %}
+              <span class="highlight-tag">{{ highlight }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Travel Stats Section -->
+    <div class="travel-stats-section">
+      <h2>By the Numbers</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">{{ travel_stats.countries }}</div>
+          <div class="stat-label">Countries Visited</div>
+          <div class="stat-icon">🌍</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ travel_stats.cities }}</div>
+          <div class="stat-label">Cities Explored</div>
+          <div class="stat-icon">🏙️</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ travel_stats.continents }}</div>
+          <div class="stat-label">Continents</div>
+          <div class="stat-icon">🗺️</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ travel_stats.photos }}</div>
+          <div class="stat-label">Photos Taken</div>
+          <div class="stat-icon">📸</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

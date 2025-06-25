@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %}Hobbies - {{ title }}{% endblock %}
+{% block og_title %}My Hobbies - {{ title }}{% endblock %} {% block
+og_description %}Explore my personal interests including photography, gaming,
+and travel{% endblock %} {% block content %}
+<section id="hobbies">
+  <div class="hobbies-container">
+    <h2>My Hobbies</h2>
+    <p class="hobbies-intro">
+      Beyond coding, I'm passionate about exploring creative outlets and new
+      experiences. Here are some of the activities that inspire and energize me.
+    </p>
+    <div class="hobbies-grid">
+      {% for hobby in hobbies %}
+      <div class="hobby-card">
+        <div class="hobby-image">
+          <img
+            src="{{ url_for('static', filename=hobby.image) }}"
+            alt="{{ hobby.name }}"
+          />
+          <div class="hobby-overlay">
+            <span class="hobby-icon">{{ hobby.icon }}</span>
+          </div>
+        </div>
+        <div class="hobby-content">
+          <h3>{{ hobby.name }}</h3>
+          {% if hobby.description %}
+          <p>{{ hobby.description }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
