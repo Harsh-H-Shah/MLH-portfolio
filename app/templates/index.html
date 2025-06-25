@@ -1,105 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+{% extends "base.html" %} {% block title %}{{ title }} - Home{% endblock %} {%
+block og_title %}{{ title }} - Software Engineer{% endblock %} {% block
+og_description %}Passionate software engineer and MSCS candidate at Stony Brook
+University{% endblock %} {% block content %}
+<div class="profile">
+  <div id="profile-picture" class="profile-picture">
+    <img
+      src="{{ url_for('static', filename='img/profile_picture.jpg') }}"
+      alt="Profile Picture"
     />
-    <meta property="og:title" content="Personal Portfolio" />
-    <meta property="og:description" content="My Personal Portfolio" />
-    <meta property="og:url" content="{{ url }}" />
+  </div>
+  <h1>{{ title }}</h1>
+</div>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
+<section id="about">
+  <h2>About Me</h2>
+  <p>
+    Hi! I'm <strong>Harsh Shah</strong>, a passionate software engineer and MSCS
+    candidate at <strong>Stony Brook University</strong> (Class of 2026) with a
+    strong foundation in full-stack development, data engineering, and AI
+    systems. I've built award-winning projects such as
+    <a href="https://github.com/harsh-h-shah/HealthSynopsis" target="_blank"
+      >HealthSynopsis</a
+    >
+    and
+    <a href="https://github.com/Harsh-H-Shah/ZapMap" target="_blank">ZapMap</a>
+    that apply AI and scalable systems to solve real-world problems.
+  </p>
+  <p>
+    Previously, I interned at Aumsat Technologies and Skinzy Software, where I
+    worked on Python/Flask backends and React.js frontends to build systems with
+    real-time data processing and impactful UI. I'm also a hackathon enthusiast
+    — winner of
+    <strong>Smart India Hackathon 2022</strong>,
+    <strong>HopperHacks 2025</strong>, and <strong>HackNYU 2025</strong>.
+  </p>
+  <p>
+    Outside of code, I love photography, gaming, and exploring new places —
+    you'll find some of that in the hobbies section! I enjoy collaborating with
+    communities and have led 14+ technical events as part of
+    <strong>Google Developer Student Clubs</strong> and
+    <strong>TSEC CodeCell</strong>.
+  </p>
+  <p>
+    You can find me on
+    <a href="https://www.linkedin.com/in/harsh-h-shah/" target="_blank"
+      >LinkedIn</a
+    >
+    or explore my work on
+    <a href="https://github.com/harsh-h-shah/" target="_blank">GitHub</a>.
+  </p>
+</section>
 
-    <link lang="sass" rel="stylesheet" href="./static/styles/main.css" />
-    <link rel="icon" href="./static/img/favicon.ico" type="image/x-icon" />
-    <title>{{ title }}</title>
-  </head>
+<section id="experience">
+  <h2>Work Experience</h2>
+  <ul>
+    {% for job in work_experience %}
+    <li>
+      <strong>{{ job.role }}</strong> at {{ job.company }} ({{ job.duration }})
+      {% if job.description %}
+      <p>{{ job.description }}</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
 
-  <body>
-    <header class="nav-bar">
-      <div class="nav-content">
-        <a href="/">
-          <div class="nav-logo">
-            <img src="./static/img/logo.svg" />
-          </div>
-        </a>
-      </div>
-    </header>
-    <div class="profile">
-      <div id="profile-picture" class="profile-picture">
-        <img src="./static/img/profile_picture.jpg" alt="Profile Picture" />
-      </div>
-      <h1>{{ title }}</h1>
-    </div>
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        Hi! I'm <strong>Harsh Shah</strong>, a passionate software engineer and
-        MSCS candidate at <strong>Stony Brook University</strong> (Class of
-        2026) with a strong foundation in full-stack development, data
-        engineering, and AI systems. I’ve built award-winning projects such as
-        <a href="https://github.com/harsh-h-shah/HealthSynopsis" target="_blank"
-          >HealthSynopsis</a
-        >
-        and
-        <a href="https://github.com/Harsh-H-Shah/ZapMap" target="_blank"
-          >ZapMap</a
-        >
-        that apply AI and scalable systems to solve real-world problems.
-      </p>
-      <p>
-        Previously, I interned at Aumsat Technologies and Skinzy Software, where
-        I worked on Python/Flask backends and React.js frontends to build
-        systems with real-time data processing and impactful UI. I'm also a
-        hackathon enthusiast — winner of
-        <strong>Smart India Hackathon 2022</strong>,
-        <strong>HopperHacks 2025</strong>, and <strong>HackNYU 2025</strong>.
-      </p>
-      <p>
-        Outside of code, I love photography, gaming, and exploring new places —
-        you’ll find some of that in the hobbies section! I enjoy collaborating
-        with communities and have led 14+ technical events as part of
-        <strong>Google Developer Student Clubs</strong> and
-        <strong>TSEC CodeCell</strong>.
-      </p>
-      <p>
-        You can find me on
-        <a href="https://www.linkedin.com/in/harsh-h-shah/" target="_blank"
-          >LinkedIn</a
-        >
-        or explore my work on
-        <a href="https://github.com/harsh-h-shah/" target="_blank">GitHub</a>.
-      </p>
-    </section>
-    <section id="experience">
-      <h2>Work Experience</h2>
-      <ul>
-        {% for job in work_experience %}
-        <li>
-          <strong>{{ job.role }}</strong> at {{ job.company }} ({{ job.duration
-          }})
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
-
-    <section id="education">
-      <h2>Education</h2>
-      <ul>
-        {% for edu in education %}
-        <li>
-          <strong>{{ edu.degree }}</strong> — {{ edu.school }} ({{ edu.duration
-          }})
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
-  </body>
-</html>
+<section id="education">
+  <h2>Education</h2>
+  <ul>
+    {% for edu in education %}
+    <li>
+      <strong>{{ edu.degree }}</strong> — {{ edu.school }} ({{ edu.duration }})
+      {% if edu.description %}
+      <p>{{ edu.description }}</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
