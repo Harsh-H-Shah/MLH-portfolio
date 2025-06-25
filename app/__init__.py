@@ -21,38 +21,28 @@ def index():
 
 @app.route("/travel")
 def travel():
-    travel_destinations = [
+    return render_template("travel.html", title="Harsh Shah")
+
+@app.route("/hobbies")
+def hobbies():
+    hobbies = [
         {
-            "name": "Tokyo, Japan",
-            "flag": "🇯🇵",
-            "image": "img/tokyo.jpg",
-            "date": "March 2023",
-            "description": "An incredible blend of traditional culture and cutting-edge technology. From serene temples to bustling Shibuya crossing.",
-            "highlights": ["Sushi", "Cherry Blossoms", "Technology", "Culture"]
+            "name": "Photography", 
+            "image": "img/photography.jpg",
+            "icon": "📸",
+            "description": "Capturing moments and exploring the world through my lens. I love street photography and nature shots."
         },
         {
-            "name": "Paris, France",
-            "flag": "🇫🇷",
-            "image": "img/paris.jpg",
-            "date": "July 2022",
-            "description": "The city of lights and romance. Amazing architecture, world-class museums, and incredible French cuisine.",
-            "highlights": ["Eiffel Tower", "Louvre", "Cuisine", "Architecture"]
+            "name": "Gaming", 
+            "image": "img/gaming.jpg",
+            "icon": "🎮",
+            "description": "Strategic thinking and problem-solving through competitive gaming. Favorite genres include strategy and RPGs."
         },
         {
-            "name": "Mumbai, India",
-            "flag": "🇮🇳",
-            "image": "img/mumbai.jpg",
-            "date": "Home",
-            "description": "My home city - a vibrant metropolis where dreams come alive. From street food to Bollywood, it's the heart of India.",
-            "highlights": ["Street Food", "Bollywood", "Marine Drive", "Culture"]
+            "name": "Traveling", 
+            "image": "img/traveling.jpg",
+            "icon": "✈️",
+            "description": "Exploring new cultures, cuisines, and landscapes. Every journey brings new perspectives and experiences."
         }
     ]
-    
-    travel_stats = {
-        "countries": "5+",
-        "cities": "15+",
-        "continents": "3",
-        "photos": "1000+"
-    }
-    
-    return render_template("travel.html", title="Harsh Shah", travel_destinations=travel_destinations, travel_stats=travel_stats)
+    return render_template("hobbies.html", title="Harsh Shah", hobbies=hobbies)
