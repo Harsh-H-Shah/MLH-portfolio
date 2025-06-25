@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}Travel - {{ title }}{% endblock %} {%
+block og_title %}My Travel Adventures - {{ title }}{% endblock %} {% block
+og_description %}Explore the world through my travels - countries visited,
+memorable experiences, and travel photography{% endblock %} {% block content %}
+<section id="travel">
+  <div class="travel-hero">
+    <div class="travel-hero-content">
+      <h1>My Travel Adventures</h1>
+      <p class="hero-subtitle">
+        Exploring the world one destination at a time - discovering new
+        cultures, capturing memories, and gaining perspectives that shape who I
+        am today.
+      </p>
+    </div>
+  </div>
+
+  <div class="travel-container">
+    <!-- Travel Map Section -->
+    <div class="travel-map-section">
+      <h2>Places I've Explored</h2>
+      <p class="map-description">
+        From bustling cities to serene landscapes, each pin on this map
+        represents a unique adventure and unforgettable memories. Travel fuels
+        my creativity and broadens my perspective on the world.
+      </p>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/d/u/0/embed?mid=1x4BLvhqNlhjheDzwLO82ZoRIEbmlEAc&ehbc=2E312F"
+          class="travel-map"
+          title="Places I've Visited"
+          loading="lazy"
+        >
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

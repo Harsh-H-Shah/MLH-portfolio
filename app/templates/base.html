@@ -40,7 +40,7 @@
     <!-- Enhanced Navigation Bar -->
     <header class="nav-bar">
       <div class="nav-content">
-        <a href="{{ url_for('index') }}">
+        <a href="{{ url_for('index') }}" class="logo-link">
           <div class="nav-logo">
             <img
               src="{{ url_for('static', filename='img/logo.svg') }}"
@@ -48,9 +48,10 @@
             />
           </div>
         </a>
-        <nav>
-          <a href="{{ url_for('index') }}">Home</a>
-          <a href="{{ url_for('hobbies') }}">Hobbies</a>
+        <nav class="nav-links">
+          <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+          <a href="{{ url_for('hobbies') }}" class="nav-link">Hobbies</a>
+          <a href="{{ url_for('travel') }}" class="nav-link">Travel</a>
           {% block additional_nav %}{% endblock %}
         </nav>
       </div>

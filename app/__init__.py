@@ -19,6 +19,10 @@ def index():
     ]
     return render_template('index.html', title="Harsh Shah", url=os.getenv("URL"), work_experience=work_experience, education=education)
 
+@app.route("/travel")
+def travel():
+    return render_template("travel.html", title="Harsh Shah")
+
 @app.route("/hobbies")
 def hobbies():
     hobbies = [
