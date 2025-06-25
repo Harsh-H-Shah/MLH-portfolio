@@ -18,3 +18,27 @@ def index():
         {"school": "University of Mumbai - TSEC", "degree": "BE in Computer Engineering", "duration": "2020 – 2024"}
     ]
     return render_template('index.html', title="Harsh Shah", url=os.getenv("URL"), work_experience=work_experience, education=education)
+
+@app.route("/hobbies")
+def hobbies():
+    hobbies = [
+        {
+            "name": "Photography", 
+            "image": "img/photography.jpg",
+            "icon": "📸",
+            "description": "Capturing moments and exploring the world through my lens. I love street photography and nature shots."
+        },
+        {
+            "name": "Gaming", 
+            "image": "img/gaming.jpg",
+            "icon": "🎮",
+            "description": "Strategic thinking and problem-solving through competitive gaming. Favorite genres include strategy and RPGs."
+        },
+        {
+            "name": "Traveling", 
+            "image": "img/traveling.jpg",
+            "icon": "✈️",
+            "description": "Exploring new cultures, cuisines, and landscapes. Every journey brings new perspectives and experiences."
+        }
+    ]
+    return render_template("hobbies.html", title="Harsh Shah", hobbies=hobbies)
