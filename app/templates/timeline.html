@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% block title %}Timeline - {{ title }}{% endblock %}
+{% block og_title %}My Thoughts Timeline - {{ title }}{% endblock %} {% block
+og_description %}View and share updates on my personal timeline.{% endblock %}
+{% block content %}
+<section id="timeline">
+  <div class="timeline-hero">
+    <div class="timeline-hero-content">
+      <h1>My Thoughts Timeline</h1>
+      <p class="hero-subtitle">
+        Share what’s on your mind and read posts from others. This timeline is a
+        collection of thoughts, moments, and reflections over time.
+      </p>
+    </div>
+  </div>
+
+  <div class="timeline-container">
+    <form id="timeline-form" class="timeline-form">
+      <label for="name">Name:</label>
+      <input type="text" name="name" placeholder="Your name" required />
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" placeholder="your@email.com" required />
+
+      <label for="content">Message:</label>
+      <textarea
+        name="content"
+        placeholder="What's on your mind?"
+        required
+      ></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <hr />
+
+    <h2>Recent Posts</h2>
+    <div id="timeline-posts" class="timeline-posts">
+      <!-- Posts will be rendered here -->
+    </div>
+  </div>
+</section>
+
+<script>
+  async function fetchPosts() {
+    const res = await fetch('/api/timeline_post');
+    const data = await res.json();
+    const timelineDiv = document.getElementById('timeline-posts');
+    timelineDiv.innerHTML = '';
+    data.timeline_posts.forEach((post) => {
+      const div = document.createElement('div');
+      div.className = 'timeline-entry';
+      div.innerHTML = `
+        <div class="timeline-header">
+          <strong>${post.name}</strong> &lt;${post.email}&gt;
+          <span class="timestamp">${post.created_at}</span>
+        </div>
+        <div class="timeline-content">${post.content}</div>
+      `;
+      timelineDiv.appendChild(div);
+    });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    await fetch('/api/timeline_post', {
+      method: 'POST',
+      body: formData,
+    });
+    e.target.reset();
+    fetchPosts();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document
+      .getElementById('timeline-form')
+      .addEventListener('submit', handleSubmit);
+    fetchPosts();
+  });
+</script>
+{% endblock %}

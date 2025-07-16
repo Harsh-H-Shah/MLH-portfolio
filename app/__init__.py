@@ -70,6 +70,10 @@ def hobbies():
     ]
     return render_template("hobbies.html", title="Harsh Shah", hobbies=hobbies)
 
+@app.route("/timeline")
+def timeline():
+    return render_template("timeline.html", title="Harsh Shah")
+
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
     name = request.form['name']
