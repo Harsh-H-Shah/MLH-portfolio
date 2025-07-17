@@ -1,12 +1,9 @@
 #!/bin/bash
-
 set -e
 
-PROJECT_DIR="/home/MLH-portfolio"
-VENV_DIR="/home/MLH-portfolio/python3-virtualenv"
-
-echo "🔁 Killing all existing tmux sessions..."
-tmux kill-server || true
+# Update these paths to match your setup
+PROJECT_DIR="$HOME/MLH-portfolio"
+VENV_DIR="$PROJECT_DIR/python3-virtualenv"
 
 echo "📁 Changing directory to project..."
 cd "$PROJECT_DIR"
@@ -21,7 +18,7 @@ source "$VENV_DIR/bin/activate"
 echo "📦 Installing Python dependencies..."
 pip install -r requirements.txt
 
-echo "🖥️ Starting new detached tmux session with Flask server..."
-tmux new-session -d -s flask-server "cd $PROJECT_DIR && source $VENV_DIR/bin/activate && flask run --host=0.0.0.0"
+echo "🔁 Restarting systemd myportfolio service..."
+sudo systemctl restart myportfolio
 
-echo "✅ Site redeployed successfully!"
+echo "✅ Redeployment complete. Site should now be live."
