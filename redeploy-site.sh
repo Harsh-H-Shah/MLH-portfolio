@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-# Update to match your VPS project path
-PROJECT_DIR="$HOME/MLH-portfolio"
+PROJECT_DIR="../home/MLH-portfolio"
 
 echo "📁 Changing directory to project..."
 cd "$PROJECT_DIR"
