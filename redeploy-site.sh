@@ -1,9 +1,8 @@
 #!/bin/bash
 set -e
 
-# Update these paths to match your setup
+# Update to match your VPS project path
 PROJECT_DIR="$HOME/MLH-portfolio"
-VENV_DIR="$PROJECT_DIR/python3-virtualenv"
 
 echo "📁 Changing directory to project..."
 cd "$PROJECT_DIR"
@@ -12,13 +11,10 @@ echo "⬇️ Pulling latest code from GitHub main branch..."
 git fetch
 git reset origin/main --hard
 
-echo "🐍 Activating virtual environment..."
-source "$VENV_DIR/bin/activate"
+echo "🛑 Stopping current containers..."
+docker compose -f docker-compose.prod.yml down
 
-echo "📦 Installing Python dependencies..."
-pip install -r requirements.txt
-
-echo "🔁 Restarting systemd myportfolio service..."
-sudo systemctl restart myportfolio
+echo "🐳 Building and starting containers..."
+docker compose -f docker-compose.prod.yml up -d --build
 
 echo "✅ Redeployment complete. Site should now be live."
