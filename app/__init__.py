@@ -9,13 +9,18 @@ import datetime
 load_dotenv()
 app = Flask(__name__)
 
-mydb = MySQLDatabase(
-    os.getenv("MYSQL_DATABASE"),
-    user=os.getenv("MYSQL_USER"),
-    password=os.getenv("MYSQL_PASSWORD"),
-    host=os.getenv("MYSQL_HOST"),
-    port=3306
-)
+# Decide which DB to use *before* connecting
+if os.getenv("TESTING") == "true":
+    print("Running in test mode with SQLite in-memory DB")
+    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=True)
+else:
+    mydb = MySQLDatabase(
+        os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        host=os.getenv("MYSQL_HOST"),
+        port=3306
+    )
 
 class TimelinePost(Model):
     name = CharField()
@@ -26,20 +31,9 @@ class TimelinePost(Model):
     class Meta:
         database = mydb
 
+# Connect & create tables
 mydb.connect()
 mydb.create_tables([TimelinePost])
-
-
-if os.getenv("TESTING") == "true":
-    print("Running in test mode")
-    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=True)
-else:
-    mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
-           user=os.getenv("MYSQL_USER"),
-           password=os.getenv("MYSQL_PASSWORD"),
-           host=os.getenv("MYSQL_HOST"),
-           port=3306            
-           )
 
 @app.route('/')
 def index():
@@ -88,25 +82,18 @@ def timeline():
 
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
-    # Validation
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     content = request.form.get('content', '').strip()
     
-    # Validate name
     if not name:
         return "Invalid name", 400
-    
-    # Validate content
     if not content:
         return "Invalid content", 400
-    
-    # Validate email (basic check)
     if not email or '@' not in email:
         return "Invalid email", 400
     
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
-
     return model_to_dict(timeline_post)
 
 @app.route('/api/timeline_post', methods=['GET'])
@@ -114,8 +101,7 @@ def get_time_line_post():
     return {
         'timeline_posts': [
             model_to_dict(p)
-            for p in
-            TimelinePost.select().order_by(TimelinePost.created_at.desc())
+            for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
         ]
     }
 

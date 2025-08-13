@@ -9,12 +9,12 @@ class AppTestCase(unittest.TestCase):
         self.client = app.test_client()
         # Clean up any existing timeline posts and cache
         with app.app_context():
-            from app import TimelinePost, cache
+            from app import TimelinePost
             TimelinePost.delete().execute()
-            try:
-                cache.delete('timeline_posts')
-            except Exception:
-                pass  # Cache might not exist in test mode
+            # try:
+            #     cache.delete('timeline_posts')
+            # except Exception:
+            #     pass  # Cache might not exist in test mode
 
     def test_home(self):
         response = self.client.get("/")
