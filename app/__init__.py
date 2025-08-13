@@ -1,12 +1,10 @@
 import os
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 from dotenv import load_dotenv
 from peewee import MySQLDatabase, SqliteDatabase
 from peewee import Model, CharField, TextField, DateTimeField
 from playhouse.shortcuts import model_to_dict
 import datetime
-import redis
-import json
 
 load_dotenv()
 app = Flask(__name__)
@@ -18,8 +16,6 @@ mydb = MySQLDatabase(
     host=os.getenv("MYSQL_HOST"),
     port=3306
 )
-
-cache = redis.StrictRedis(host='localhost', port=6379, db=0)
 
 class TimelinePost(Model):
     name = CharField()
@@ -110,25 +106,17 @@ def post_time_line_post():
         return "Invalid email", 400
     
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
-    cache.delete('timeline_posts')
+
     return model_to_dict(timeline_post)
 
 @app.route('/api/timeline_post', methods=['GET'])
 def get_time_line_post():
-    cached_posts = cache.get('timeline_posts')
-    if cached_posts:
-        return jsonify(json.loads(cached_posts))
-    post_list = [
-        {
-            **model_to_dict(p),
-            'created_at': p.created_at.isoformat()  # convert datetime to ISO string
-        }
-        for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
-    ]
-    cache.setex('timeline_posts', 60, json.dumps(post_list))
-
     return {
-        'timeline_posts': post_list
+        'timeline_posts': [
+            model_to_dict(p)
+            for p in
+            TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
     }
 
 @app.route('/api/timeline_post/<int:post_id>', methods=['DELETE'])
