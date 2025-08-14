@@ -59,13 +59,13 @@ def hobbies():
             "name": "Photography", 
             "image": "img/photography.jpg",
             "icon": "📸",
-            "description": "Capturing moments and exploring the world through my lens. I love street photography and nature shots."
+            "description": "Capturing moments and exploring the world through my lens. I love photography and nature shots."
         },
         {
             "name": "Gaming", 
             "image": "img/gaming.jpg",
             "icon": "🎮",
-            "description": "Strategic thinking and problem-solving through competitive gaming. Favorite genres include strategy and RPGs."
+            "description": "Just gaming for fun. Really love racing games and open world games."
         },
         {
             "name": "Traveling", 
