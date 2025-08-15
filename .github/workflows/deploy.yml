@@ -30,3 +30,14 @@ jobs:
 
       - name: Deploy site
         run: ssh my-vps '~/redeploy-site.sh'
+
+      - name: Print container status
+        run: ssh my-vps 'cd ~/MLH-portfolio && docker-compose ps'
+
+      - name: Notify Discord of success
+        if: success()
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+
+      - name: Notify Discord of failure
+        if: failure()
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
