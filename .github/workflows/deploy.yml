@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: Deploy
 
 on:
   push:
@@ -8,24 +8,25 @@ on:
 
 jobs:
   deploy:
+    name: 'Deploy to VPS'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
       - name: Configure SSH
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy-key.pem
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy-key.pem
           chmod 600 ~/.ssh/deploy-key.pem
-          cat >> ~/.ssh/config <<EOL
+          cat >> ~/.ssh/config <<END
           Host my-vps
-            HostName ${{ secrets.SSH_HOST }}
-            User ${{ secrets.SSH_USER }}
+            HostName $SSH_IP
+            User $SSH_USER
             IdentityFile ~/.ssh/deploy-key.pem
             StrictHostKeyChecking no
-          EOL
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_IP: ${{ secrets.SSH_IP }}
 
-      - name: Print project root directory
-        run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
+      - name: Deploy site
+        run: ssh my-vps '~/redeploy-site.sh'
