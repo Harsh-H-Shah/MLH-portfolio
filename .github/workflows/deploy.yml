@@ -32,7 +32,7 @@ jobs:
         run: ssh my-vps '~/redeploy-site.sh'
 
       - name: Print container status
-        run: ssh my-vps 'cd ../home/MLH-portfolio && docker-compose ps'
+        run: ssh my-vps 'cd ../home/MLH-portfolio && docker ps'
 
       - name: Notify Discord of success
         if: success()
