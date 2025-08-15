@@ -38,6 +38,7 @@ mydb.create_tables([TimelinePost])
 @app.route('/')
 def index():
     work_experience = [
+        {"role": "Production Engineer Fellow", "company": "Meta X MLH Fellowship", "duration": "Jun 2025 – Present"},
         {"role": "Software Developer Intern", "company": "Aumsat Technologies", "duration": "Jun 2023 – Oct 2023"},
         {"role": "Frontend Developer Intern", "company": "Skinzy Software", "duration": "Oct 2021 – Dec 2021"}
     ]
